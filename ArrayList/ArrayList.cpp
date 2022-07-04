@@ -39,6 +39,7 @@ void ArrayList::resize(){
     }
     delete[] _data;
     _data = new_data;
+    _cap = new_cap;
 }
 void ArrayList::add(int num){
     if(_size == _cap){
@@ -46,4 +47,20 @@ void ArrayList::add(int num){
     }
     _data[_size] = num;
     _size++;
+}
+int ArrayList::at(size_t index) const{
+    if(index >= _size){
+        throw std::out_of_range("Out of bounds!");
+    }
+    return _data[index];
+}
+int& ArrayList::at(size_t index){
+    if(index >= _size){
+        throw std::out_of_range("Out of bounds!");
+        
+    }
+    return _data[index];
+}
+size_t ArrayList::size() const{
+    return _size;
 }
