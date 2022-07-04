@@ -17,9 +17,28 @@ class ArrayList {
         int at(size_t index) const;
         int& at(size_t index);
         void add(int num);
-        void add(int num, size_t index);
+        void add(size_t index, int num);
         size_t size() const;
 };
+ArrayList::ArrayList(const ArrayList& other): ArrayList(){
+    if(this == &other){
+        return;
+    }
+    this->clear();
+    for(unsigned int i = 0; i < other.size(); i++){
+        this->add(other.at(i));
+    }
+}
+ArrayList& ArrayList::operator=(const ArrayList& other){
+    if(this == &other){
+        return *this;
+    }
+    this->clear();
+    for(unsigned int i = 0; i < other.size(); i++){
+        this->add(other.at(i));
+    }
+    return *this;
+}
 ostream& operator<<(ostream& os, const ArrayList& other){
     os << "[";
     for(unsigned int i = 0; i < other.size()-1; i++){
@@ -63,4 +82,22 @@ int& ArrayList::at(size_t index){
 }
 size_t ArrayList::size() const{
     return _size;
+}
+void ArrayList::add(size_t index, int num){
+    if(_size == _cap){
+        resize();
+    }
+    unsigned int i = _size;
+    while(i > index){
+        _data[i] = _data[i-1];
+        i--;
+    }
+    _data[index] = num;
+    _size++;
+}
+void ArrayList::clear(){
+    delete[] _data;
+    _size = 0;
+    _cap = 0;
+    _data = new int[_cap];
 }
