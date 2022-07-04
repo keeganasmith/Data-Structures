@@ -19,6 +19,7 @@ class ArrayList {
         void add(int num);
         void add(size_t index, int num);
         size_t size() const;
+        void remove(size_t index);
 };
 ArrayList::ArrayList(const ArrayList& other): ArrayList(){
     if(this == &other){
@@ -40,6 +41,10 @@ ArrayList& ArrayList::operator=(const ArrayList& other){
     return *this;
 }
 ostream& operator<<(ostream& os, const ArrayList& other){
+    if(other.size() == 0){
+        os << "[]";
+        return os;
+    }
     os << "[";
     for(unsigned int i = 0; i < other.size()-1; i++){
         os << other.at(i) << ", ";
@@ -100,4 +105,13 @@ void ArrayList::clear(){
     _size = 0;
     _cap = 0;
     _data = new int[_cap];
+}
+void ArrayList::remove(size_t index){
+    if(index >= _size){
+        throw std::out_of_range("Out of bounds!");
+    }
+    for(unsigned int i = index; i < _size-1; i++){
+        _data[i] = _data[i+1];
+    }
+    _size--;
 }

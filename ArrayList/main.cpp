@@ -1,5 +1,23 @@
 #include "ArrayList.cpp"
 using std::cout, std::endl;
+void test_remove(){
+    ArrayList joe;
+    //joe.remove(0);
+    joe.add(1);
+    joe.remove(0);
+    cout << joe << endl;
+    joe.add(1);
+    cout << joe << endl;
+    joe.add(2);
+    joe.add(3);
+    joe.add(4);
+    joe.add(5);
+    cout << joe << endl;
+    while(joe.size() != 0){
+        joe.remove(0);
+    }
+    cout << joe << endl;
+}
 void test_copy(){
     ArrayList joe;
     ArrayList bob;
@@ -46,5 +64,6 @@ void test_add(){
 int main(){
     //test_add();
     //test_insert();
-    test_copy();
+    //test_copy();
+    test_remove();
 }
