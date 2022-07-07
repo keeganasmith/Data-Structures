@@ -1,27 +1,28 @@
 #include <iostream>
 #include <ostream>
 using std::ostream;
-
+template <class T>
 class ArrayList {
     private:
-        int* _data;
+        T* _data;
         size_t _cap;
         size_t _size;
         void resize();
     public:
         ArrayList(): _data{}, _cap{0}, _size{0}{}
-        ArrayList(const ArrayList& other);
+        ArrayList(const ArrayList<T>& other);
         ~ArrayList(){delete[] _data;}
-        ArrayList& operator=(const ArrayList& other);
+        ArrayList& operator=(const ArrayList<T>& other);
         void clear();
-        int at(size_t index) const;
-        int& at(size_t index);
-        void add(int num);
-        void add(size_t index, int num);
+        T at(size_t index) const;
+        T& at(size_t index);
+        void add(T num);
+        void add(size_t index, T num);
         size_t size() const;
         void remove(size_t index);
 };
-ArrayList::ArrayList(const ArrayList& other): ArrayList(){
+template <class T>
+ArrayList<T>::ArrayList(const ArrayList<T>& other): ArrayList(){
     if(this == &other){
         return;
     }
@@ -30,7 +31,8 @@ ArrayList::ArrayList(const ArrayList& other): ArrayList(){
         this->add(other.at(i));
     }
 }
-ArrayList& ArrayList::operator=(const ArrayList& other){
+template <class T>
+ArrayList<T>& ArrayList<T>::operator=(const ArrayList<T>& other){
     if(this == &other){
         return *this;
     }
@@ -40,7 +42,8 @@ ArrayList& ArrayList::operator=(const ArrayList& other){
     }
     return *this;
 }
-ostream& operator<<(ostream& os, const ArrayList& other){
+template <class T>
+ostream& operator<<(ostream& os, const ArrayList<T>& other){
     if(other.size() == 0){
         os << "[]";
         return os;
@@ -52,7 +55,8 @@ ostream& operator<<(ostream& os, const ArrayList& other){
     os << other.at(other.size()-1) << "]";
     return os;
 }
-void ArrayList::resize(){
+template <class T>
+void ArrayList<T>::resize(){
     int new_cap = _cap*2;
     if(_cap == 0){
         new_cap = 1;
@@ -65,30 +69,35 @@ void ArrayList::resize(){
     _data = new_data;
     _cap = new_cap;
 }
-void ArrayList::add(int num){
+template <class T>
+void ArrayList<T>::add(T num){
     if(_size == _cap){
         resize();
     }
     _data[_size] = num;
     _size++;
 }
-int ArrayList::at(size_t index) const{
+template <class T>
+T ArrayList<T>::at(size_t index) const{
     if(index >= _size){
         throw std::out_of_range("Out of bounds!");
     }
     return _data[index];
 }
-int& ArrayList::at(size_t index){
+template <class T>
+T& ArrayList<T>::at(size_t index){
     if(index >= _size){
         throw std::out_of_range("Out of bounds!");
         
     }
     return _data[index];
 }
-size_t ArrayList::size() const{
+template <class T>
+size_t ArrayList<T>::size() const{
     return _size;
 }
-void ArrayList::add(size_t index, int num){
+template <class T>
+void ArrayList<T>::add(size_t index, T num){
     if(_size == _cap){
         resize();
     }
@@ -100,13 +109,15 @@ void ArrayList::add(size_t index, int num){
     _data[index] = num;
     _size++;
 }
-void ArrayList::clear(){
+template <class T>
+void ArrayList<T>::clear(){
     delete[] _data;
     _size = 0;
     _cap = 0;
     _data = new int[_cap];
 }
-void ArrayList::remove(size_t index){
+template <class T>
+void ArrayList<T>::remove(size_t index){
     if(index >= _size){
         throw std::out_of_range("Out of bounds!");
     }

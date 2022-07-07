@@ -1,7 +1,7 @@
 #include "ArrayList.cpp"
 using std::cout, std::endl;
 void test_remove(){
-    ArrayList joe;
+    ArrayList<int> joe;
     //joe.remove(0);
     joe.add(1);
     joe.remove(0);
@@ -19,8 +19,8 @@ void test_remove(){
     cout << joe << endl;
 }
 void test_copy(){
-    ArrayList joe;
-    ArrayList bob;
+    ArrayList<int> joe;
+    ArrayList<int> bob;
     joe.add(1);
     joe.add(2);
     joe.add(3);
@@ -35,11 +35,11 @@ void test_copy(){
     cout << "bob = joe: " << bob;
     bob.add(2);
     cout << "bob: " << bob << "joe: " << joe << endl;
-    ArrayList billy(bob);
+    ArrayList<int> billy(bob);
     cout << billy;
 }
 void test_insert(){
-    ArrayList joe;
+    ArrayList<int> joe;
     joe.add(1);
     joe.add(2);
     joe.add(4);
@@ -53,7 +53,7 @@ void test_insert(){
     cout << joe << endl;
 }
 void test_add(){
-    ArrayList joe;
+    ArrayList<int> joe;
     joe.add(5);
     joe.add(6);
     cout << joe << endl;
